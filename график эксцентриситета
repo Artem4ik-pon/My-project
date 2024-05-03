@@ -1,0 +1,12 @@
+def satellite_two(request):
+    data_kuzbass2 = pd.Series(
+        {"Декабрь": 50335, "Январь": 50975, "Февраль": 51485, "Март": 52135, "Апрель": 52785, "Май": 53375})
+
+    # Построение графиков
+    plt.plot(data_kuzbass2, label='KUZBASS-300 (RS34S)')
+    plt.legend()
+    plt.xlabel('Месяц')
+    plt.ylabel('Эксцентриситет орбиты')
+    plt.title('Данные спутника KUZBASS-300')
+    plt.show()
+    return render(request, 'main/satellite_one.html')
