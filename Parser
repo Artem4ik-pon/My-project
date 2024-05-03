@@ -1,0 +1,28 @@
+Парсинг данных с сайта для спутников
+
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+
+url = 'http://r4uab.ru/satonline.txt'
+response = requests.get(url)
+if response.status_code == 200:
+    data = response.text.split('\n')
+    found = False
+    result = ''
+    count = 0
+    for line in data:
+        if 'KUZBASS-300 (RS34S)' in line:
+            found = True
+            count = 3
+        if found and count > 0:
+            result += line + '\n'
+            count -= 1
+            with open('KUZBASS-300 (RS34S).txt', 'a') as file:
+                file.write(str('today')[:19]+'\n')
+                file.write(result)
+                file.write('\n')
+
+name = pd.Series({"Декабрь": 94.5932, "Январь":95.1193, "Февраль":95.8412, "Март":96.4876, "Апрель":96.9965, "Май":97.3799})
+plt.plot(name)
+plt.show()
