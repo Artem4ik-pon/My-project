@@ -1,0 +1,132 @@
+from django.shortcuts import render
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
+import numpy as np
+
+
+def index(request):
+    data = {
+        'title': 'Главная страница'
+    }
+    return render(request, 'main/index.html', data)
+
+def about(request):
+    data_about = {
+        'title': 'Про нас'
+    }
+    return render(request, 'main/about.html', data_about)
+
+
+def contacts(request):
+    data_contacts = {
+        'title': 'Контакты',
+        'objects': {
+            'Сорочинский Артем - +7-***-***-83-52': 'Artyom',
+            'Мельников Андрей - +7-***-***-81-58': 'Andrew',
+            'Хайруллин Марат - +7-***-***-16-19': 'Marat',
+            'Тайлаков Александр - +7-***-***-50-16': 'Alexandr',
+            'Дуничев Николай - +7-***-***-**-**': 'Nikolay'
+        }
+    }
+    return render(request, 'main/contacts.html', data_contacts)
+
+
+
+
+def satellite_one(request):
+    data_satellite = {
+        'title': 'График наклона спутника',
+        'dict': {
+            'График наклона спутника KUZBASS-300'
+        }
+    }
+    return render(request, 'main/satellite_one.html', data_satellite)
+
+
+def satellite11(request):
+    data_kuzbass1 = pd.Series(
+        {"Дек 2023": 94.5932, "Янв 2024": 95.1193, "Фeв": 95.8412, "Мaрт": 96.4876, "Апр": 96.9965, "Май": 97.3799, 'Июнь': 98.0175, 'Июль': 98.8821, 'Авг':99.5179, 'Сент': 100.6572, 'Окт': 101.8134, 'Ноя':103.0421, 'Дек 2024':104.5544, 'Янв 2025': 106.3267, 'Фев': 108.3312, 'Март': 110.5190})
+    plt.plot(data_kuzbass1, label='KUZBASS-300 (RS34S)')
+    plt.legend()
+    plt.xlabel('Месяц')
+    plt.ylabel('Угол наклона')
+    plt.title('Данные спутника KUZBASS-300')
+    plt.axvline(x=0.5, color='b', label='axvline - full height', linestyle='--',linewidth=1)
+    plt.axvline(x=12.5, color='b', label='axvline - full height', linestyle='--', linewidth=1)
+    plt.show()
+    return render(request, 'main/satellite_one.html')
+
+def satellite12(request):
+    data_kuzbass2 = pd.Series(
+        {"Дек 2023": 50725, "Янв 2024": 51385, "Фев": 51995, "Март": 52515, "Апр": 53145, "Май": 53865, 'Июнь':54367,'Июль':55071, 'Авг':55973, 'Сент':56132, 'Окт':57243, 'Ноя':57890, 'Дек 2024':58912, 'Янв 2025':59543, 'Фeв':60218, 'Мaрт':61094, 'Апp':62046})
+    plt.plot(data_kuzbass2, label='KUZBASS-300 (RS34S)')
+    plt.legend()
+    plt.xlabel('Месяц')
+    plt.ylabel('Эксцентриситет')
+    plt.title('Данные спутника KUZBASS-300')
+    plt.axvline(x=0.5, color='b', label='axvline - full height', linestyle='--',linewidth=1)
+    plt.axvline(x=12.5, color='b', label='axvline - full height', linestyle='--', linewidth=1)
+    plt.show()
+    return render(request, 'main/satellite_one.html')
+def satellite13(request):
+    from mpl_toolkits import mplot3d
+    import numpy as np
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    z = np.linspace(1, 0, 100)
+    x = z ** 7
+    y = np.linspace(1, 0, 100)
+    ax.plot3D(x, y, z, 'green')
+    ax.set_title('Примерное движение KUZBASS-300')
+    plt.show()
+    return render(request, 'main/satellite_one.html')
+
+
+def satellite_two(request):
+    data_satellite = {
+        'title': 'График наклона спутника',
+        'dict': {
+            'График наклона спутника KUZGTU-1'
+        }
+    }
+    return render(request, 'main/satellite_two.html', data_satellite)
+
+
+def satellite21(request):
+    data_kuzgtu1 = pd.Series(
+        {"Дек 2023": 45.2132, "Янв 2024": 46.1254, "Фев": 46.7898, "Март": 47.3658, "Апр": 48.0121, "Май": 48.5698, 'Июнь':49.1143, 'Июль':49.7890, 'Авг':50.4412, 'Сент':51.1097,'Окт':51.8317,'Ноя':52.5555,'Дек 2024':53.3193,'Янв 2025':54.0009,'Фeв':54.9164,'Mарт':55.6171, 'Апp':57.1314})
+    plt.plot(data_kuzgtu1, label='KUZGTU-1')
+    plt.legend()
+    plt.xlabel('Месяц')
+    plt.ylabel('Значение')
+    plt.title('Данные спутника KUZGTU-1')
+    plt.axvline(x=0.5, color='b', label='axvline - full height', linestyle='--',linewidth=1)
+    plt.axvline(x=12.5, color='b', label='axvline - full height', linestyle='--', linewidth=1)
+    plt.show()
+    return render(request, 'main/satellite_two.html')
+
+def satellite22(request):
+    data_kuzgtu2 = pd.Series(
+        {"Дек 2023": 35565, "Янв 2024": 36005, "Фев": 36815, "Март": 37345, "Апp": 37995, "Май": 38435, 'Июнь':39001,'Июль':39814,'Авг':40440,'Сент':41119,'Окт':41979,'Ноя':42657,'Дек 2024':43312,'Янв 2025':43999,'Фeв':44651,'Мaрт':45218,'Апр':45790,})
+    plt.plot(data_kuzgtu2, label='KUZGTU-1')
+    plt.legend()
+    plt.xlabel('Месяц')
+    plt.ylabel('Значение')
+    plt.title('Данные спутника KUZGTU-1')
+    plt.axvline(x=0.5, color='b', label='axvline - full height', linestyle='--',linewidth=1)
+    plt.axvline(x=12.5, color='b', label='axvline - full height', linestyle='--', linewidth=1)
+    plt.show()
+    return render(request, 'main/satellite_two.html')
+def satellite23(request):
+    fig = plt.figure()
+    ax = plt.axes(projection='3d')
+    z = np.linspace(1, 0, 100)
+    x = z ** 4 * (z - 5)
+    y = np.linspace(1, 0, 100)
+    ax.plot3D(x, y, z, 'green')
+    ax.set_title('Примерное движение KUZGTU-1')
+    plt.show()
+    return render(request, 'main/satellite_two.html')
